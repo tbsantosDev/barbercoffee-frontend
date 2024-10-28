@@ -1,6 +1,6 @@
 import PageSpinner from "@/components/common/pageSpinner";
 import userService from "@/services/userService";
-import { UserResponse } from "@/types/user";
+import { User, UserResponse } from "@/types/user";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -12,15 +12,15 @@ const ClientHome = () => {
   const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState<string | null>(null);
   const [points, setPoints] = useState<number | null>(null);
+  const [emailConfirmed, setEmailConfirmed] = useState<boolean>(true);
 
-  const userLogged = async () => {
+  const pointsByUser = async () => {
     try {
       const res = await userService.pointsByUser();
 
       if (res.status === 200) {
         const userData: UserResponse = res.data;
-        const { firstName, lastName, pointsAmount } = userData.dados;
-        setUserName(`${firstName} ${lastName}`);
+        const {pointsAmount } = userData.dados;
         setPoints(pointsAmount);
       } else {
         toast.error("Erro ao buscar Usuário");
@@ -32,12 +32,33 @@ const ClientHome = () => {
     }
   };
 
+  const currentUser = async() => {
+    try {
+      const res = await userService.loggedUser();
+
+      if (res.status === 200) {
+        const userData: User = res.data;
+        const { firstName, lastName, emailConfirmed } = userData.dados;
+        setUserName(`${firstName} ${lastName}`);
+        setEmailConfirmed(emailConfirmed)
+
+      } else {
+        toast.error("Erro ao buscar Usuário");
+      }
+    } catch (error) {
+      console.log("Ocorreu um erro:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   useEffect(() => {
     const token = sessionStorage.getItem("barbercoffee-token");
     if (!token) {
       router.push("/login");
     } else {
-      userLogged();
+      pointsByUser();
+      currentUser();
     }
   }, [router]);
 
@@ -49,6 +70,12 @@ const ClientHome = () => {
           <h1 className="text-3xl font-bold mb-4 text-center">
             Bem-vindo(a), {userName ? userName : "Usuário"}
           </h1>
+
+          {!emailConfirmed && (
+            <p className="text-red-500 text-lg font-semibold mb-4">
+              Confirme seu e-mail para ter acesso a todas as funcionalidades.
+            </p>
+          )}
 
           <div className="flex flex-col items-center space-y-4 md:space-y-6">
             <Lottie

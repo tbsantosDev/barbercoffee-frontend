@@ -36,6 +36,7 @@ const ExchangePoints = () => {
   const [selectedItem, setSelectedItem] = useState<Item | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(0);
+  const [emailConfirmed, setEmailConfirmed] = useState<boolean>(true);
   const pageSize = 10;
 
   const pointsByUser = async () => {
@@ -60,8 +61,9 @@ const ExchangePoints = () => {
       const res = await userService.loggedUser();
       if(res.status === 200) {
         const userData: User = res.data;
-        const {id} = userData.dados
+        const {id, emailConfirmed} = userData.dados
         setUserId(id)
+        setEmailConfirmed(emailConfirmed)
       } else {
         toast.error(res.data.message)
       }
@@ -146,73 +148,81 @@ const ExchangePoints = () => {
         Troque seu(s) <span className="text-red-500">{points}</span> ponto(s) por produtos ou serviços!
       </h1>
   
-      <div className="w-full max-w-md mb-6">
-        <label className="block text-lg font-medium mb-2">Selecione a Categoria</label>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
-        >
-          <option value="products">Serviços</option>
-          <option value="services">Produtos</option>
-        </select>
-      </div>
-  
-      {loading ? (
-        <PageSpinner />
+      {!emailConfirmed ? (
+        <p className="text-red-500 text-lg font-semibold mb-4">
+          Confirme seu e-mail para ter acesso a essa funcionalidade.
+        </p>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
-            {currentPageItems.length > 0 ? (
-              currentPageItems.map((item: Item) => (
-                <div
-                  key={item.id}
-                  className="border rounded-md p-4 shadow-md flex flex-col items-center bg-white"
-                >
-                  <img
-                    src={convertBlobToUrl(item.image)}
-                    alt={item.name}
-                    className="w-32 h-32 object-cover mb-2 rounded-md"
-                  />
-                  <h2 className="text-lg font-bold text-center text-black">
-                    {item.name}
-                  </h2>
-                  <p className="text-black">
-                    <span className="text-red-600">{item.amountInPoints}</span> pontos
-                  </p>
-                  <button
-                    onClick={() => handleExchange(item)}
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-                  >
-                    Trocar
-                  </button>
-                </div>
-              ))
-            ) : (
-              <p className="text-center">Nenhum item encontrado.</p>
-            )}
+          <div className="w-full max-w-md mb-6">
+            <label className="block text-lg font-medium mb-2">Selecione a Categoria</label>
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-blue-400 text-black"
+            >
+              <option value="products">Serviços</option>
+              <option value="services">Produtos</option>
+            </select>
           </div>
   
-          {currentPageItems.length > 0 && (
-            <div className="flex justify-between mt-6 w-full max-w-4xl">
-              <button
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
-                className="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md disabled:bg-gray-300"
-                disabled={currentPage === 0}
-              >
-                Anterior
-              </button>
-              <span>
-                Página {currentPage + 1} de {totalPages}
-              </span>
-              <button
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))}
-                className="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md disabled:bg-gray-300"
-                disabled={currentPage === totalPages - 1}
-              >
-                Próxima
-              </button>
-            </div>
+          {loading ? (
+            <PageSpinner />
+          ) : (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-4xl">
+                {currentPageItems.length > 0 ? (
+                  currentPageItems.map((item: Item) => (
+                    <div
+                      key={item.id}
+                      className="border rounded-md p-4 shadow-md flex flex-col items-center bg-white"
+                    >
+                      <img
+                        src={convertBlobToUrl(item.image)}
+                        alt={item.name}
+                        className="w-32 h-32 object-cover mb-2 rounded-md"
+                      />
+                      <h2 className="text-lg font-bold text-center text-black">
+                        {item.name}
+                      </h2>
+                      <p className="text-black">
+                        <span className="text-red-600">{item.amountInPoints}</span> pontos
+                      </p>
+                      <button
+                        onClick={() => handleExchange(item)}
+                        className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+                      >
+                        Trocar
+                      </button>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-center">Nenhum item encontrado.</p>
+                )}
+              </div>
+  
+              {currentPageItems.length > 0 && (
+                <div className="flex justify-between mt-6 w-full max-w-4xl">
+                  <button
+                    onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 0))}
+                    className="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md disabled:bg-gray-300"
+                    disabled={currentPage === 0}
+                  >
+                    Anterior
+                  </button>
+                  <span>
+                    Página {currentPage + 1} de {totalPages}
+                  </span>
+                  <button
+                    onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages - 1))}
+                    className="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md disabled:bg-gray-300"
+                    disabled={currentPage === totalPages - 1}
+                  >
+                    Próxima
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </>
       )}
