@@ -1,36 +1,89 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Projeto Barbearia Frontend
 
-## Getting Started
+Este é o frontend do projeto de barbearia, desenvolvido em **Next.js**. O objetivo do projeto é fornecer uma interface amigável e moderna para os clientes agendarem serviços, visualizarem informações e interagirem com o sistema.
 
-First, run the development server:
+## 📋 Pré-requisitos
+
+Antes de começar, certifique-se de que sua máquina atende aos seguintes requisitos:
+
+- [Node.js](https://nodejs.org/) (versão 16 ou superior recomendada)
+- [NPM](https://www.npmjs.com/) ou [Yarn](https://yarnpkg.com/)
+
+## ⚙️ Configuração
+
+### 1. Variáveis de Ambiente
+
+Configure as variáveis de ambiente necessárias no arquivo `.env`. Você pode usar o arquivo de exemplo `.env.example` como base:
+
+```env
+NEXT_PUBLIC_API_URL=https://seu-endereco-da-api.com
+```
+
+### 2. Instalação das Dependências
+
+Instale as dependências necessárias para o projeto com o seguinte comando:
+
+```bash
+npm install
+```
+
+_ou, se preferir utilizar Yarn:_
+
+```bash
+yarn install
+```
+
+## ▶️ Executando o Projeto
+
+Para iniciar o servidor de desenvolvimento, utilize o seguinte comando:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+_ou, se estiver utilizando Yarn:_
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O frontend estará disponível no endereço:
 
-## Learn More
+```
+http://localhost:3000
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tecnologias Utilizadas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **[Next.js](https://nextjs.org/):** Framework React para desenvolvimento de aplicações web modernas e performáticas.
+- **[Axios](https://axios-http.com/):** Biblioteca para realizar requisições HTTP.
+- **[Chart.js](https://www.chartjs.org/):** Biblioteca para criação de gráficos interativos.
+- **[Date-fns](https://date-fns.org/):** Biblioteca para manipulação de datas de forma simples e eficiente.
+- **[JWT-decode](https://github.com/auth0/jwt-decode):** Biblioteca para decodificar tokens JWT.
+- **[Lottie-react](https://www.npmjs.com/package/lottie-react):** Biblioteca para animações Lottie.
+- **[Swiper](https://swiperjs.com/):** Biblioteca para carrosséis e sliders responsivos.
+- **[Tailwind CSS](https://tailwindcss.com/):** Framework de utilitários CSS para estilização.
+- **[TypeScript](https://www.typescriptlang.org/):** Superset do JavaScript para adicionar tipagem estática ao código.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Deploy
 
-## Deploy on Vercel
+Para realizar o deploy da aplicação, siga a documentação oficial do Next.js para [deploy em produção](https://nextjs.org/docs/deployment).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🤝 Contribuindo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contribuições são bem-vindas! Se você deseja contribuir com o projeto, siga os passos abaixo:
+
+1. Faça um fork do repositório.
+2. Crie uma branch com sua feature ou correção: `git checkout -b minha-feature`.
+3. Commit suas mudanças: `git commit -m 'Adicionei uma nova feature'`.
+4. Faça um push para a branch: `git push origin minha-feature`.
+5. Abra um pull request.
+
+## 📝 Licença
+
+Este projeto está licenciado sob a licença MIT. Consulte o arquivo `LICENSE` para mais informações.
+
+---
+
+Feito com ❤️ por [Thiago Santos](https://github.com/tbsantosDev).
+
