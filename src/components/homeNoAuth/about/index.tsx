@@ -5,7 +5,7 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 const Sobre = () => {
   const handleOpenMap = () => {
     window.open(
-      'https://www.google.com/maps/place/R.+Combatentes+do+Ultramar+14,+2530+Reguengo+Grande,+Portugal',
+      'https://www.google.com/maps/place/localização',
       '_blank'
     );
   };
@@ -16,7 +16,7 @@ const Sobre = () => {
         <div className="text-left">
           <h2 className="text-3xl font-semibold mb-4">SOBRE</h2>
           <p className="text-lg text-gray-700 mb-6">
-            No Café com Barba, oferecemos uma experiência única de barbearia e café em um ambiente acolhedor e moderno. Nossa equipe especializada está pronta para fornecer os melhores serviços de corte de cabelo, barba e cuidados pessoais para todos os nossos clientes. Localizados em Reguengo Grande, Portugal, esperamos sua visita para um momento de relaxamento e estilo.
+            No Café com Barba, oferecemos uma experiência única de barbearia e café em um ambiente acolhedor e moderno. Nossa equipe especializada está pronta para fornecer os melhores serviços de corte de cabelo, barba e cuidados pessoais para todos os nossos clientes. Esperamos sua visita para um momento de relaxamento e estilo.
           </p>
         </div>
 
@@ -27,7 +27,7 @@ const Sobre = () => {
             className="bg-sky-600 text-white py-3 px-6 rounded-full flex items-center space-x-2 hover:bg-blue-600 transition"
           >
             <FontAwesomeIcon icon={faMapMarkerAlt} className="text-white" />
-            <span>R. Combatentes do Ultramar 14, 2530 Reguengo Grande, Portugal</span>
+            <span>Localização</span>
           </button>
         </div>
       </div>
